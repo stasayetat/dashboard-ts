@@ -27,7 +27,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const express_1 = __importDefault(require("express"));
 const users_controller_1 = require("./users/users.controller");
-const exception_filter_1 = require("./errors/exception.filter");
 const inversify_1 = require("inversify");
 const types_1 = require("./types");
 require("reflect-metadata");
@@ -57,9 +56,8 @@ let App = class App {
 App = __decorate([
     (0, inversify_1.injectable)(),
     __param(0, (0, inversify_1.inject)(types_1.TYPES.ILogger)),
-    __param(1, (0, inversify_1.inject)(types_1.TYPES.UsersController)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.IUsersController)),
     __param(2, (0, inversify_1.inject)(types_1.TYPES.IExceptionFilter)),
-    __metadata("design:paramtypes", [Object, users_controller_1.UsersController,
-        exception_filter_1.ExceptionFilter])
+    __metadata("design:paramtypes", [Object, users_controller_1.UsersController, Object])
 ], App);
 exports.App = App;

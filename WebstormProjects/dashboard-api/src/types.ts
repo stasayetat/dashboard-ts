@@ -1,8 +1,8 @@
-import {ExceptionFilter} from "./errors/exception.filter";
+import { ExceptionFilter } from './errors/exception.filter';
 
 export const TYPES = {
-    Application: Symbol.for('Application'),
-    ILogger: Symbol.for('ILogger'),
-    UsersController: Symbol.for('UsersController'),
-    IExceptionFilter: Symbol.for('IExceptionFilter')
-}
+	Application: Symbol.for('Application'),
+	ILogger: Symbol.for('ILogger'),
+	IUsersController: Symbol.for('IUsersController'),
+	IExceptionFilter: Symbol.for('IExceptionFilter'),
+};
