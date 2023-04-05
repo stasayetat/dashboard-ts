@@ -8,6 +8,8 @@ import { ILogger } from '../logger/logger.interface';
 import { TYPES } from '../types';
 import 'reflect-metadata';
 import { IUsersController } from './users.interface';
+import { UserLoginDto } from './dto/user.login.dto';
+import { UserRegisterDto } from './dto/user.register.dto';
 
 @injectable()
 export class UsersController extends BaseController implements IUsersController {
@@ -28,11 +30,13 @@ export class UsersController extends BaseController implements IUsersController 
 		this.bindRoutes(this.userMethod);
 	}
 
-	public login(req: Request, res: Response, next: NextFunction): void {
+	public login(req: Request<{}, {}, UserLoginDto>, res: Response, next: NextFunction): void {
+		console.log(req.body);
 		next(new HttpError(401, 'Error with login'));
 	}
 
-	public register(req: Request, res: Response, next: NextFunction): void {
+	public register(req: Request<{}, {}, UserRegisterDto>, res: Response, next: NextFunction): void {
+		console.log(req.body);
 		res.send('Register');
 	}
 }

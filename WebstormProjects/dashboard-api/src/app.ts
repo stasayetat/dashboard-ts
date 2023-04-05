@@ -6,6 +6,7 @@ import { IExceptionFilter } from './errors/exception.filter.interface';
 import { inject, injectable } from 'inversify';
 import { TYPES } from './types';
 import 'reflect-metadata';
+import { json } from 'body-parser';
 @injectable()
 export class App {
 	public app: Express;
@@ -29,10 +30,15 @@ export class App {
 		this.app.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
 	}
 
+	public useMiddleWare(): void {
+		this.app.use(json);
+	}
+
 	public async init(): Promise<void> {
+		this.useMiddleWare();
 		this.useRoutes();
 		this.useExceptionFilters();
 		this.server = this.app.listen(this.port);
-		this.logger.log('Server started!');
+		this.logger.log('Server started started!');
 	}
 }

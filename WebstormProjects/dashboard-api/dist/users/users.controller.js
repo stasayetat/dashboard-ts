@@ -22,15 +22,18 @@ let UsersController = class UsersController extends base_controller_1.BaseContro
     constructor(loggerService) {
         super(loggerService);
         this.loggerService = loggerService;
-        this.userMethod = [{
+        this.userMethod = [
+            {
                 path: '/login',
                 func: this.login,
-                method: 'post'
-            }, {
+                method: 'post',
+            },
+            {
                 path: '/register',
                 func: this.register,
-                method: 'post'
-            }];
+                method: 'post',
+            },
+        ];
         this.bindRoutes(this.userMethod);
     }
     login(req, res, next) {

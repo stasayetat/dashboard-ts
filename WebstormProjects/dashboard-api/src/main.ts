@@ -1,4 +1,4 @@
-import { App } from './app.js';
+import { App } from './app';
 import { LoggerService } from './logger/logger.service';
 import { UsersController } from './users/users.controller';
 import { ExceptionFilter } from './errors/exception.filter';

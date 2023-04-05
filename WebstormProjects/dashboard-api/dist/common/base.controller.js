@@ -24,7 +24,7 @@ let BaseController = class BaseController {
         return this._router;
     }
     bindRoutes(routes) {
-        for (let route of routes) {
+        for (const route of routes) {
             this.logger.log(`${route.method} bind ${route.path}`);
             const handler = route.func.bind(this);
             this.router[route.method](route.path, handler);
