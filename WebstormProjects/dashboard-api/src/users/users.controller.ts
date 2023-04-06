@@ -12,6 +12,7 @@ import { UserLoginDto } from './dto/user.login.dto';
 import { UserRegisterDto } from './dto/user.register.dto';
 import { User } from './user.entity';
 import { IUsersService } from './users.service.interface';
+import { ValidateMiddleware } from '../common/validate.middleware';
 
 @injectable()
 export class UsersController extends BaseController implements IUsersController {
@@ -20,11 +21,13 @@ export class UsersController extends BaseController implements IUsersController 
 			path: '/login',
 			func: this.login,
 			method: 'post',
+			middlewares: [new ValidateMiddleware(UserLoginDto)],
 		},
 		{
 			path: '/register',
 			func: this.register,
 			method: 'post',
+			middlewares: [new ValidateMiddleware(UserRegisterDto)],
 		},
 	];
 	constructor(
@@ -46,6 +49,7 @@ export class UsersController extends BaseController implements IUsersController 
 		next: NextFunction,
 	): Promise<void> {
 		const result = await this.userService.createUser(body);
+		console.log(body);
 		if (!result) {
 			return next(new HttpError(422, 'This user already registered'));
 		}

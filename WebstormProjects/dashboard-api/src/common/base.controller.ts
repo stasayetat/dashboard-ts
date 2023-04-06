@@ -1,12 +1,11 @@
 import { LoggerService } from '../logger/logger.service';
-import { Response, Router } from 'express';
-import { Logger } from 'tslog';
+import { NextFunction, Request, Response, Router } from 'express';
 import { IControllerRoute } from './route.interface';
 import { ILogger } from '../logger/logger.interface';
-import { injectable } from 'inversify';
+import { injectable, interfaces } from 'inversify';
 export { Router } from 'express';
 import 'reflect-metadata';
-import { IUsersController } from '../users/users.interface';
+import Next = interfaces.Next;
 @injectable()
 export abstract class BaseController {
 	private readonly _router: Router;
@@ -23,8 +22,12 @@ export abstract class BaseController {
 	public bindRoutes(routes: IControllerRoute[]): void {
 		for (const route of routes) {
 			this.logger.log(`${route.method} bind ${route.path}`);
+			const middleware = route.middlewares?.map((m) => {
+				return m.execute.bind(m);
+			});
 			const handler = route.func.bind(this);
-			this.router[route.method](route.path, handler);
+			const pipeline = middleware ? [...middleware, handler] : handler;
+			this.router[route.method](route.path, pipeline);
 		}
 	}
 

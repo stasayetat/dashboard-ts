@@ -1,5 +1,6 @@
 import { ExceptionFilter } from './errors/exception.filter';
 import { IUsersService } from './users/users.service.interface';
+import { IConfigService } from './config/config.service.interface';
 
 export const TYPES = {
 	Application: Symbol.for('Application'),
@@ -7,4 +8,5 @@ export const TYPES = {
 	IUsersController: Symbol.for('IUsersController'),
 	IExceptionFilter: Symbol.for('IExceptionFilter'),
 	IUsersService: Symbol.for('IUsersService'),
+	IConfigService: Symbol.for('IConfigService'),
 };
