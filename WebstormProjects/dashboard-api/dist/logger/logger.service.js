@@ -32,3 +32,4 @@ LoggerService = __decorate([
     __metadata("design:paramtypes", [])
 ], LoggerService);
 exports.LoggerService = LoggerService;
+//# sourceMappingURL=logger.service.js.map

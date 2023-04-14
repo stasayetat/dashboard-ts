@@ -24,10 +24,15 @@ let BaseController = class BaseController {
         return this._router;
     }
     bindRoutes(routes) {
+        var _a;
         for (const route of routes) {
             this.logger.log(`${route.method} bind ${route.path}`);
+            const middleware = (_a = route.middlewares) === null || _a === void 0 ? void 0 : _a.map((m) => {
+                return m.execute.bind(m);
+            });
             const handler = route.func.bind(this);
-            this.router[route.method](route.path, handler);
+            const pipeline = middleware ? [...middleware, handler] : handler;
+            this.router[route.method](route.path, pipeline);
         }
     }
     created(res) {
@@ -46,3 +51,4 @@ BaseController = __decorate([
     __metadata("design:paramtypes", [Object])
 ], BaseController);
 exports.BaseController = BaseController;
+//# sourceMappingURL=base.controller.js.map

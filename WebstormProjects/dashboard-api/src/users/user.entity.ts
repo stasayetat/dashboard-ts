@@ -9,7 +9,7 @@ export class User {
 	}
 
 	public async setPassword(pass: string, salt: number): Promise<void> {
-		this._password = await hash(pass, Number(salt));
+		this._password = await hash(pass, salt);
 	}
 
 	get password(): string {
