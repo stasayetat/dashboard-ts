@@ -38,6 +38,7 @@ export class App {
 	}
 
 	public useMiddleWare(): void {
+		this.app.use(express.static('public'));
 		this.app.use(json());
 		const authMiddleware = new AuthMiddleware(this.configService.get('SECRET'));
 		this.app.use(authMiddleware.execute.bind(authMiddleware));

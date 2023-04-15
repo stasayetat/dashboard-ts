@@ -56,7 +56,6 @@ export class UsersController extends BaseController implements IUsersController 
 			return next(new HttpError(401, 'Wrong password or no existed user'));
 		} else {
 			const jwt = await this.signJWT(req.body.email, this.configService.get('SECRET'));
-
 			this.ok(res, { jwt });
 		}
 	}

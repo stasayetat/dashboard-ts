@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<title>Title</title>
+</head>
+<body>
+<form>
+	<p>Name:</p>
+	<input type='text' id='userName'/>
+	<p>Email:</p>
+	<input type='text' id='userEmail'/>
+	<p>Password:</p>
+	<input type='text' id='userPass'/><br/>
+	<p>Json Web Token:</p>
+	<input type='text' id='userJWT'/><br/>
+	<button id='registerButton'>Register</button><br/>
+	<button id='loginButton'>Login</button><br/>
+	<button id='infoButton'>Info</button>
+</form>
+<script>
+	const registerButton = document.getElementById('registerButton');
+	const loginButton = document.getElementById('loginButton');
+	const infoButton = document.getElementById('infoButton');
+	const userName = document.getElementById('userName');
+	const userEmail = document.getElementById('userEmail');
+	const userPass = document.getElementById('userPass');
+	const userJWT = document.getElementById('userJWT');
+	const baseUrl = 'http://localhost:8000/users';
+	async function registerUser(e) {
+		e.preventDefault();
+		const res = await fetch(baseUrl + '/register', {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				name: userName.value,
+				email: userEmail.value,
+				password: userPass.value
+			}),
+		});
+		const data = await res.json();
+		console.log(data);
+	};
+	registerButton.addEventListener('click', registerUser);
+
+	async function loginUser(e) {
+		e.preventDefault();
+		const res = await fetch(baseUrl + '/login', {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				email: userEmail.value,
+				password: userPass.value
+			}),
+		});
+		const data = await res.json();
+		console.log(data);
+	};
+	loginButton.addEventListener('click', loginUser);
+
+	async function infoUser(e) {
+		e.preventDefault();
+		const res = await fetch(baseUrl + '/info', {
+			method: 'GET',
+			headers: {
+				"Authorization": "Bearer " + userJWT.value
+			},
+		});
+		const data = await res.json();
+		console.log(data.infoUser);
+	};
+	infoButton.addEventListener('click', infoUser);
+
+
+</script>
+</body>
+</html>
